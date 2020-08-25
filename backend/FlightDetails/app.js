@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const morgan = require('morgan');
 
-const flightDetailsRoutes = require('./Routes/flightDetails')
+const flightDetailsRoutes = require('./api/Routes/flightDetails')
 
 mongoose.connect("mongodb+srv://himali:himali@cluster1.eeyiw.mongodb.net/FlightDB?retryWrites=true&w=majority", { useNewUrlParser: true })
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
-
+import { Router } from 'react-router-dom';
 import Header from './Components/header'
-import Login from './Components/login'
-import SignUp from './Components/signup'
-import Home from './Components/home'
+
+import Route from 'react-router-dom/Route'
+import AdminPage from './Components/adminPage'
 
 class App extends Component {
 
@@ -14,7 +14,6 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-
       </div>
     );
   }

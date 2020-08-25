@@ -1,0 +1,13 @@
+.displayContainer{
+    display: flexbox;
+    width: 60%;
+    height: 10vh;
+    background-color: rgb(223, 223, 223);
+    border: solid white;
+    border-radius: 1em;
+    margin: 0 20%;
+}
+
+.displayContainer div{
+   left: 10%;
+}

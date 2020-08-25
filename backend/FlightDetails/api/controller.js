@@ -1,13 +1,9 @@
-const express = require('express')
-const router = express.Router()
+const mongoose = require('mongoose')
+const Flight = require('../Model/FlightDetails')
 
-const Flight = require('../Model/FlightDetails');
-const mongoose = require('mongoose');
-const { json } = require('body-parser');
-
-router.get('/', (req, res, next) => {
+exports.getFlights = (req, res) => {
     Flight.find()
-        .select('flightName from to fare _id')
+        .select('flightName from to fare departureDate departureTime arrivaleDate arrivaleTime _id')
         .exec()
         .then(docs => {
             if (docs) {
@@ -18,6 +14,10 @@ router.get('/', (req, res, next) => {
                             flightName: doc.flightName,
                             from: doc.from,
                             to: doc.to,
+                            departureDate: doc.departureDate,
+                            departureTime: doc.departureTime,
+                            arrivaleDate: doc.arrivaleDate,
+                            arrivaleTime: doc.arrivaleTime,
                             fare: doc.fare,
                             _id: doc._id
                         }
@@ -38,9 +38,9 @@ router.get('/', (req, res, next) => {
                 error: err
             });
         })
-});
+}
 
-router.get('/:flightId', (req, res, next) => {
+exports.getFlightsById = (req, res) => {
     const id = req.params.flightId;
     Flight.findById(id)
         .select('flightName from to fare _id')
@@ -52,6 +52,10 @@ router.get('/:flightId', (req, res, next) => {
                         flightName: doc.flightName,
                         from: doc.from,
                         to: doc.to,
+                        departureDate: doc.departureDate,
+                        departureTime: doc.departureTime,
+                        arrivaleDate: doc.arrivaleDate,
+                        arrivaleTime: doc.arrivaleTime,
                         fare: doc.fare,
                         _id: doc._id
                     }
@@ -69,27 +73,53 @@ router.get('/:flightId', (req, res, next) => {
             console.log(err)
             res.status(500).json({ error: err })
         })
-})
+}
 
-router.post('/add', (req, res, next) => {
-    console.log("add")
+exports.addFlight = (req, res) => {
+    var dDate = new Date('20-08-2020');
+    dDate = req.body.departureDate
+    var aDate = new Date('20-08-2020');
+    aDate = req.body.arrivaleDate;
     const flight = new Flight({
         _id: new mongoose.Types.ObjectId,
         flightName: req.body.flightName,
         from: req.body.from,
         to: req.body.to,
+        departureDate: dDate,
+        departureTime: req.body.departureTime,
+        arrivaleDate: aDate,
+        arrivaleTime: req.body.arrivaleTime,
         fare: req.body.fare
     });
-
+    console.log("In add flight")
     flight.save()
         .then(result => {
             res.status(200).json({
                 flight: flight
             })
         })
-})
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                error: err
+            })
+        })
+}
 
-router.patch('/:flightId', (req, res, next) => {
+exports.cancelFlight = (req, res) => {
+    Flight.remove({ _id: req.params.flightId })
+        .exec()
+        .then(result => {
+            res.status(200).json(result)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            })
+        })
+}
+
+exports.updateFlight = (req, res) => {
     const id = req.params.flightId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -101,19 +131,4 @@ router.patch('/:flightId', (req, res, next) => {
             console.log(result);
             res.status(200).json(result)
         })
-})
-
-router.delete('/:flightId', (req, res) => {
-    Flight.remove({ _id: req.params.flightId })
-        .exec()
-        .then(result => {
-            res.status(200).json(result)
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            })
-        })
-})
-
-module.exports = router
+}

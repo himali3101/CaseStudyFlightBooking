@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css'
 
-import Profile from './profile'
+import AdminPage from './adminPage'
 
 import AuthService from '../Service/auth.service'
 
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
 
 import { isEmail } from "validator";
+
 
 const required = value => {
     if (!value) {
@@ -65,9 +65,12 @@ class Login extends Component {
         });
         AuthService.login(this.state.email, this.state.password).then(
             data => {
-                this.props.history.push("/profile");
-                // window.location.reload();
-                console.log(data)
+                if (data) {
+                    this.props.history.push('/addFlight')
+                    window.location.reload();
+                    console.log(data)
+                }
+
             },
             error => {
                 const resMessage =
@@ -83,34 +86,6 @@ class Login extends Component {
                 });
             }
         );
-
-        // this.form.validateAll();
-
-        // if (this.checkBtn.context._errors.length === 0) {
-        //     AuthService.login(this.state.username, this.state.password).then(
-        //         () => {
-        //             this.props.history.push("/profile");
-        //             window.location.reload();
-        //         },
-        //         error => {
-        //             const resMessage =
-        //                 (error.response &&
-        //                     error.response.data &&
-        //                     error.response.data.message) ||
-        //                 error.message ||
-        //                 error.toString();
-
-        //             this.setState({
-        //                 loading: false,
-        //                 message: resMessage
-        //             });
-        //         }
-        //     );
-        // } else {
-        //     this.setState({
-        //         loading: false
-        //     });
-        // }
 
     }
 
@@ -133,10 +108,6 @@ class Login extends Component {
                                 <label for="exampleInputPassword1">Password</label>
                                 <Input type="password" class="form-control" value={this.state.password} onChange={this.handlePassword} placeholder="Password" validations={[required]} />
                             </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                            </div>
                             <button type="submit" class="btn btn-primary btn-block" disabled={this.state.loading}>{this.state.loading && (
                                 <span className="spinner-border spinner-border-sm"></span>
                             )}Submit</button>
@@ -148,15 +119,10 @@ class Login extends Component {
                                     </div>
                                 </div>
                             )}
-                            <CheckButton
-                                style={{ display: "none" }}
-                                ref={c => {
-                                    this.checkBtn = c;
-                                }}
-                            />
                         </Form>
                     </div>
                 </div>
+
             </div>
         )
     }
