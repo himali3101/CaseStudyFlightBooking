@@ -3,7 +3,7 @@ const Flight = require('../Model/FlightDetails')
 
 exports.getFlights = (req, res) => {
     Flight.find()
-        .select('flightName from to fare departureDate departureTime arrivaleDate arrivaleTime _id')
+        .select('flightName from to fare departureDate departureTime arrivaleDate arrivaleTime totalSeats remainingSeats _id')
         .exec()
         .then(docs => {
             if (docs) {
@@ -19,6 +19,8 @@ exports.getFlights = (req, res) => {
                             arrivaleDate: doc.arrivaleDate,
                             arrivaleTime: doc.arrivaleTime,
                             fare: doc.fare,
+                            totalSeats: doc.totalSeats,
+                            remainingSeats: doc.remainingSeats,
                             _id: doc._id
                         }
                     })
@@ -40,10 +42,10 @@ exports.getFlights = (req, res) => {
         })
 }
 
-exports.getFlightsById = (req, res) => {
-    const id = req.params.flightId;
-    Flight.findById(id)
-        .select('flightName from to fare _id')
+exports.getFlightsByName = (req, res) => {
+    const name = req.params.flightName;
+    Flight.find({ flightName: name })
+        .select('flightName from to fare departureDate departureTime arrivaleDate arrivaleTime totalSeats remainingSeats _id')
         .exec()
         .then(doc => {
             if (doc) {
@@ -57,11 +59,13 @@ exports.getFlightsById = (req, res) => {
                         arrivaleDate: doc.arrivaleDate,
                         arrivaleTime: doc.arrivaleTime,
                         fare: doc.fare,
+                        totalSeats: doc.totalSeats,
+                        remainingSeats: doc.remainingSeats,
                         _id: doc._id
                     }
                 }
                 console.log(doc);
-                res.status(200).json(response);
+                res.status(200).json(doc);
             }
             else {
                 res.status(404).json({
@@ -76,34 +80,46 @@ exports.getFlightsById = (req, res) => {
 }
 
 exports.addFlight = (req, res) => {
-    var dDate = new Date('20-08-2020');
-    dDate = req.body.departureDate
-    var aDate = new Date('20-08-2020');
-    aDate = req.body.arrivaleDate;
-    const flight = new Flight({
-        _id: new mongoose.Types.ObjectId,
-        flightName: req.body.flightName,
-        from: req.body.from,
-        to: req.body.to,
-        departureDate: dDate,
-        departureTime: req.body.departureTime,
-        arrivaleDate: aDate,
-        arrivaleTime: req.body.arrivaleTime,
-        fare: req.body.fare
-    });
-    console.log("In add flight")
-    flight.save()
+    Flight.find({ flightName: req.body.flightName })
         .then(result => {
-            res.status(200).json({
-                flight: flight
-            })
+            if (result.length > 1) {
+                return res.status(409).json({
+                    message: "Flgiht Name already exists"
+                })
+            } else {
+                var dDate = new Date('20-08-2020');
+                dDate = req.body.departureDate
+                var aDate = new Date('20-08-2020');
+                aDate = req.body.arrivaleDate;
+                const flight = new Flight({
+                    _id: new mongoose.Types.ObjectId,
+                    flightName: req.body.flightName,
+                    from: req.body.from,
+                    to: req.body.to,
+                    departureDate: dDate,
+                    departureTime: req.body.departureTime,
+                    arrivaleDate: aDate,
+                    arrivaleTime: req.body.arrivaleTime,
+                    fare: req.body.fare,
+                    totalSeats: req.body.totalSeats,
+                    remainingSeats: req.body.totalSeats
+                });
+                console.log("In add flight")
+                flight.save()
+                    .then(result => {
+                        res.status(200).json({
+                            flight: flight
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).json({
+                            error: err
+                        })
+                    })
+            }
         })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({
-                error: err
-            })
-        })
+
 }
 
 exports.cancelFlight = (req, res) => {
@@ -120,15 +136,16 @@ exports.cancelFlight = (req, res) => {
 }
 
 exports.updateFlight = (req, res) => {
-    const id = req.params.flightId;
+    const name = req.params.flightName;
     const updateOps = {};
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
+        console.log(updateOps)
     }
-    Flight.update({ _id: id }, { $set: updateOps })
+    Flight.update({ flightName: name }, { $set: updateOps })
         .exec()
         .then(result => {
-            console.log(result);
+            //console.log(result);
             res.status(200).json(result)
         })
 }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const flightSchema = mongoose.Schema({
+const bookingSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     flightName: {
         type: String,
@@ -39,7 +39,15 @@ const flightSchema = mongoose.Schema({
     remainingSeats: {
         type: Number,
         required: true
+    },
+    allocatedSeat: {
+        type: Number,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
     }
 })
 
-module.exports = mongoose.model('Flight', flightSchema);
+module.exports = mongoose.model('Booking', bookingSchema);

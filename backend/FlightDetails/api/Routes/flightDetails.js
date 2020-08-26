@@ -7,11 +7,11 @@ const checkAuth = require('../middleware/check-auth')
 
 router.get('/', controller.getFlights);
 
-router.get('/:flightId', checkAuth.verifyToken, controller.getFlightsById)
+router.get('/:flightName', controller.getFlightsByName)
 
 router.post('/add', checkAuth.verifyToken, controller.addFlight)
 
-router.patch('/:flightId', controller.updateFlight)
+router.patch('/:flightName', controller.updateFlight)
 
 router.delete('/:flightId', controller.cancelFlight)
 
