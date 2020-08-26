@@ -1,4 +1,6 @@
 import axios from 'axios';
+import authHeader from './auth-hearder';
+
 
 const API_URL = 'http://localhost:3001/flight/';
 
@@ -10,7 +12,8 @@ class FlightService {
     addFlight(flightName, from, to, departureDate,
         departureTime, arrivaleDate, arrivaleTime,
         fare) {
-        return axios.post(API_URL + 'add', {
+        console.log("add" + authHeader()["x-access-token"])
+        return axios.post(API_URL + 'add', { headers: authHeader() }, {
             flightName,
             from,
             to,

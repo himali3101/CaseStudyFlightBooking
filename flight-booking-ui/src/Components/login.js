@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css'
 
-import AdminPage from './adminPage'
-
 import AuthService from '../Service/auth.service'
 
 
@@ -66,9 +64,9 @@ class Login extends Component {
         AuthService.login(this.state.email, this.state.password).then(
             data => {
                 if (data) {
-                    this.props.history.push('/addFlight')
+                    this.props.history.push('/')
                     window.location.reload();
-                    console.log(data)
+                    console.log(data.Token)
                 }
 
             },

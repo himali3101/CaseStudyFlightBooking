@@ -2,13 +2,14 @@ const express = require('express')
 const router = express.Router()
 
 const controller = require('../controller')
+const checkAuth = require('../middleware/check-auth')
 
 
 router.get('/', controller.getFlights);
 
-router.get('/:flightId', controller.getFlightsById)
+router.get('/:flightId', checkAuth.verifyToken, controller.getFlightsById)
 
-router.post('/add', controller.addFlight)
+router.post('/add', checkAuth.verifyToken, controller.addFlight)
 
 router.patch('/:flightId', controller.updateFlight)
 

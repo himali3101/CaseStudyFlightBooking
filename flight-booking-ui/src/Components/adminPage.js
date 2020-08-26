@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import { withRouter } from "react-router";
-import Sidebar from "../Components/FlightDetails/sidebar";
 import { BrowserRouter as Router, NavLink } from 'react-router-dom'
 import Route from 'react-router-dom/Route'
 
@@ -9,8 +6,37 @@ import AddFlight from './FlightDetails/addFlight'
 import DisplayFlight from './FlightDetails/displayFlight'
 import UpdateFlight from './FlightDetails/updateFlight'
 
+import UserService from '../Service/user.service'
+
 class AdminPage extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            content: ''
+        }
+    }
+
+    // componentDidMount() {
+    //     UserService.getUserBoard()
+    //         .then(response => {
+    //             console.log(response)
+    //             this.setState({
+    //                 content: response.data
+    //             })
+    //         },
+    //             error => {
+    //                 this.setState({
+    //                     content:
+    //                         (error.response &&
+    //                             error.response.data &&
+    //                             error.response.data.message) ||
+    //                         error.message ||
+    //                         error.toString()
+    //                 })
+    //             })
+    // }
     render() {
         return (
             <>

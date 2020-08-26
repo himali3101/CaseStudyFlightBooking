@@ -1,5 +1,5 @@
 import axios from 'axios';
-import authHeader from './auth-header';
+import authHeader from './auth-hearder';
 
 const API_URL = 'http://localhost:9000/user/';
 
@@ -9,7 +9,7 @@ class UserService {
     }
 
     getUserBoard() {
-        return axios.get(API_URL + 'user', { headers: authHeader() });
+        return axios.get(API_URL, { headers: authHeader() });
     }
 
 }

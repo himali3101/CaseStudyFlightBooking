@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUp from './signup'
 import Login from './login'
 import Home from './home'
-import { logo } from '../images/flight.png'
 
 class Header extends Component {
     render() {
