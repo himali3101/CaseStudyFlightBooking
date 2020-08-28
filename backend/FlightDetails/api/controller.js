@@ -123,7 +123,7 @@ exports.addFlight = (req, res) => {
 }
 
 exports.cancelFlight = (req, res) => {
-    Flight.remove({ _id: req.params.flightId })
+    Flight.remove({ flightName: req.params.flightName })
         .exec()
         .then(result => {
             res.status(200).json(result)
@@ -147,5 +147,34 @@ exports.updateFlight = (req, res) => {
         .then(result => {
             //console.log(result);
             res.status(200).json(result)
+        })
+}
+
+exports.update = (req, res) => {
+    console.log("HEllo" + req.body.from)
+    var dDate = new Date('20-08-2020');
+    dDate = req.body.departureDate
+    var aDate = new Date('20-08-2020');
+    aDate = req.body.arrivaleDate;
+    const flight = new Flight({
+        flightName: req.body.flightName,
+        from: req.body.from,
+        to: req.body.to,
+        departureDate: dDate,
+        departureTime: req.body.departureTime,
+        arrivaleDate: aDate,
+        arrivaleTime: req.body.arrivaleTime,
+        fare: req.body.fare,
+        totalSeats: req.body.totalSeats,
+        remainingSeats: req.body.totalSeats
+    });
+    console.log(flight)
+    Flight.update({ flightName: req.body.flightName }, { $set: flight })
+        .exec()
+        .then(result => {
+            res.status(200).json(result)
+        })
+        .catch(err => {
+            console.log(err)
         })
 }

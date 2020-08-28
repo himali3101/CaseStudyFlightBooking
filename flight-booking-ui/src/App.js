@@ -11,6 +11,9 @@ import Home from './Components/home'
 import Search from './Components/search'
 import Signup from './Components/signup'
 import Login from './Components/login'
+import AddFlight from './Components/FlightDetails/addFlight'
+import DisplayFlight from './Components/FlightDetails/displayFlight'
+import UpdateFlight from './Components/FlightDetails/updateFlight'
 
 
 class App extends Component {
@@ -24,6 +27,7 @@ class App extends Component {
     };
   }
 
+
   componentDidMount() {
     const user = AuthService.getCurrentUser();
 
@@ -32,7 +36,7 @@ class App extends Component {
         currentUser: AuthService.getCurrentUser(),
         showAdminPage: user.email.includes("admin@gmail.com")
       })
-      console.log(this.state.currentUser)
+
     }
   }
 
@@ -59,10 +63,23 @@ class App extends Component {
 
                 {showAdminPage && (
                   <li className="nav-item">
-                    <NavLink to={"/adminpage"} className="nav-link">
-                      Admin Page
-                    </NavLink>
+                    <NavLink className="nav-link" to="/addFlight" exact>Add-Flight</NavLink>
                   </li>
+
+                )}
+
+                {showAdminPage && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/updateFlight" exact>Update-Flight</NavLink>
+                  </li>
+
+                )}
+
+                {showAdminPage && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/displayFlight" exact>display-Flight</NavLink>
+                  </li>
+
                 )}
 
                 {currentUser ? (
@@ -101,6 +118,10 @@ class App extends Component {
           <Route path="/adminpage" component={AdminPage} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
+          <Route path="/addFlight" exact component={AddFlight} />
+          <Route path="/displayFlight" component={DisplayFlight} />
+          <Route path="/updateFlight" component={UpdateFlight} />
+
 
 
         </div>

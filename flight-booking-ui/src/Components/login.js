@@ -4,11 +4,11 @@ import './login.css'
 
 import AuthService from '../Service/auth.service'
 
-
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 
 import { isEmail } from "validator";
+//import { model } from '../../../backend/FlightDetails/Model/FlightDetails';
 
 
 const required = value => {
@@ -42,6 +42,10 @@ class Login extends Component {
             loading: false,
             message: ""
         }
+    }
+    handleClose = (event) => {
+        this.props.history.push('/')
+        window.location.reload();
     }
 
     handleEmail = (event) => {
@@ -90,38 +94,46 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="container-fluid">
-                <div className="row justify-content-center">
-                    <div className="col-12 col-sm-6 col-md-3">
-                        <Form class="form-container" onSubmit={this.handleSubmit} ref={c => {
-                            this.form = c;
-                        }}>
-                            <h2>Login Form</h2>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <Input type="email" class="form-control" value={this.state.email} onChange={this.handleEmail} aria-describedby="emailHelp" placeholder="Enter email" validations={[required]} />
-                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <Input type="password" class="form-control" value={this.state.password} onChange={this.handlePassword} placeholder="Password" validations={[required]} />
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block" disabled={this.state.loading}>{this.state.loading && (
-                                <span className="spinner-border spinner-border-sm"></span>
-                            )}Submit</button>
 
-                            {this.state.message && (
-                                <div className="form-group">
-                                    <div className="alert alert-danger" role="alert">
-                                        {this.state.message}
-                                    </div>
+            <div className="bg-model">
+                <div className="model-content">
+                    <div className="close" onClick={this.handleClose}>+</div>
+                    <img src='https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png' alt="User" className="login-img" />
+                    <Form className="form-container" onSubmit={this.handleSubmit} ref={c => {
+                        this.form = c;
+                    }}>
+
+                        <div class="form-group">
+                            <input type="email" className="login-input" value={this.state.email} onChange={this.handleEmail} aria-describedby="emailHelp" placeholder="Enter email" validations={[required]} />
+                        </div>
+                        <div class="form-group">
+
+                            <input type="password" className="login-input" value={this.state.password} onChange={this.handlePassword} placeholder="Password" validations={[required]} />
+                        </div>
+                        <button type="submit" className="login-button" disabled={this.state.loading}>{this.state.loading && (
+                            <span className="spinner-border spinner-border-sm"></span>
+                        )}Login</button>
+
+                        {this.state.message && (
+                            <div className="form-group">
+                                <div className="alert alert-danger" role="alert">
+                                    {this.state.message}
                                 </div>
-                            )}
-                        </Form>
-                    </div>
+                            </div>
+                        )}
+                    </Form>
                 </div>
-
             </div>
+
+
+            // <div className="container-fluid">
+            //     <div className="row justify-content-center">
+            //         <div className="col-12 col-sm-6 col-md-3">
+
+            //         </div>
+            //     </div>
+
+            // </div>
         )
     }
 

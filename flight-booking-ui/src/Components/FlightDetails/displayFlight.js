@@ -53,6 +53,7 @@ class DisplayFlight extends Component {
                                     Fare : {flight.fare}
                                 </div>
                             </div>
+                            Virattttttt
                         </div>
                     </div>)
                 }

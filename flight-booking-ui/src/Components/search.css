@@ -1,15 +1,20 @@
 .input-field{
-    width: 15%;
+    width: 20%;
     height: 5vh;
     top: 1cm;
     left: 1cm;
     border-radius: 0.5em;
     background-color: rgb(245, 245, 245);
+    
 }
 
 .searchButton{
     margin: 1cm;
-    width: 8%;
+    width: 15%;
     height: 5vh;
     border-radius: 0.5em;
+}
+
+.searchContainer{
+    margin: 0 20%;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import Search from './search'
 
 class Home extends Component {
 
@@ -7,6 +8,7 @@ class Home extends Component {
         return (
             <div>
                 hello
+                <Search />
             </div>
         )
     }

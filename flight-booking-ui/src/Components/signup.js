@@ -14,6 +14,12 @@ class SignUp extends Component {
         }
     }
 
+    handleClose = (event) => {
+        this.props.history.push('/')
+        window.location.reload();
+    }
+
+
     handleEmail = (event) => {
         this.setState({
             email: event.target.value
@@ -42,24 +48,23 @@ class SignUp extends Component {
 
     render() {
         return (
-            <div className="container-fluid">
-                <div className="row justify-content-center">
-                    <div className="col-12 col-sm-6 col-md-3">
-                        <form class="form-container" onSubmit={this.handleSubmit}>
-                            <h2>SignUp Form</h2>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" value={this.state.email} onChange={this.handleEmail} aria-describedby="emailHelp" placeholder="Enter email" />
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" value={this.state.password} onChange={this.handlePassword} placeholder="Password" />
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                        </form>
-                    </div>
+            <div className="bg-model">
+                <div className="model-content">
+                    <div className="close" onClick={this.handleClose}>+</div>
+                    <img src='https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png' alt="User" className="login-img" />
+                    <form class="form-container" onSubmit={this.handleSubmit}>
+
+                        <div class="form-group">
+                            <input type="email" className="login-input" value={this.state.email} onChange={this.handleEmail} aria-describedby="emailHelp" placeholder="Enter email" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" className="login-input" value={this.state.password} onChange={this.handlePassword} placeholder="Password" />
+                        </div>
+                        <button type="submit" className="login-button">SignUp</button>
+                    </form>
                 </div>
             </div>
+
         )
     }
 }

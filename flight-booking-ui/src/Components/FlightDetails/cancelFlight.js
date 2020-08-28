@@ -5,7 +5,7 @@ class CancelFlight extends Component {
     render() {
         return (
             <div>
-                CancelFlight
+
             </div>
         )
     }
