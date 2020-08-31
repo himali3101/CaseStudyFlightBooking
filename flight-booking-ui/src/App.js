@@ -16,6 +16,8 @@ import DisplayFlight from './Components/FlightDetails/displayFlight'
 import UpdateFlight from './Components/FlightDetails/updateFlight'
 
 
+
+
 class App extends Component {
   constructor(props) {
     super();
@@ -29,6 +31,7 @@ class App extends Component {
 
 
   componentDidMount() {
+    //this.setState({ height: window.innerHeight + 'px' });
     const user = AuthService.getCurrentUser();
 
     if (user) {
@@ -49,81 +52,64 @@ class App extends Component {
 
     return (
       <Router>
-        <div>
-          <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark ">
-            <div class="container-fluid">
-              <div className="navbar-brand">
-                <img src="../images/images.jpg" style={{ width: 100, marginTop: -7 }} />
+        <div class="SM MD LG" data-observe-resizes>
+
+          <div>
+            <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark ">
+              <div class="container-fluid">
+                <div className="navbar-brand">
+                  <img src="../images/images.jpg" style={{ width: 100, marginTop: -7 }} />
                                 Flight Booking
                             </div>
-              <ul class="nav navbar-nav navbar-right">
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/">Home</NavLink>
-                </li>
-
-                {showAdminPage && (
+                <ul class="nav navbar-nav navbar-right">
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/addFlight" exact>Add-Flight</NavLink>
+                    <NavLink className="nav-link" to="/">Home</NavLink>
                   </li>
 
-                )}
 
-                {showAdminPage && (
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="/updateFlight" exact>Update-Flight</NavLink>
-                  </li>
-
-                )}
-
-                {showAdminPage && (
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="/displayFlight" exact>display-Flight</NavLink>
-                  </li>
-
-                )}
-
-                {currentUser ? (
-                  <div className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                      <NavLink to={"/profile"} className="nav-link">
-                        {currentUser.email}
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <a href="/logout" className="nav-link" onClick={this.logout}>
-                        Logout
-                        </a>
-                    </li>
-                  </div>
-                ) : (
+                  {currentUser ? (
                     <div className="navbar-nav ml-auto">
                       <li className="nav-item">
-                        <NavLink to={"/login"} className="nav-link">
-                          Login
+                        <NavLink to={"/profile"} className="nav-link">
+                          {currentUser.email}
                         </NavLink>
                       </li>
-
                       <li className="nav-item">
-                        <NavLink to={"/signup"} className="nav-link">
-                          Sign Up
-                        </NavLink>
+                        <a href="/logout" className="nav-link" onClick={this.logout}>
+                          Logout
+                        </a>
                       </li>
                     </div>
-                  )}
-              </ul>
-            </div>
-          </nav>
+                  ) : (
+                      <div className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                          <NavLink to={"/login"} className="nav-link">
+                            Login
+                        </NavLink>
+                        </li>
 
-          <Route path="/" component={Home} />
-          <Route path="/adminpage" component={AdminPage} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route path="/addFlight" exact component={AddFlight} />
-          <Route path="/displayFlight" component={DisplayFlight} />
-          <Route path="/updateFlight" component={UpdateFlight} />
+                        <li className="nav-item">
+                          <NavLink to={"/signup"} className="nav-link">
+                            Sign Up
+                        </NavLink>
+                        </li>
+                      </div>
+                    )}
+                </ul>
+              </div>
+            </nav>
+
+            <Route path="/" component={Home} />
+            <Route path="/adminpage" component={AdminPage} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <Route path="/addFlight" exact component={AddFlight} />
+            <Route path="/displayFlight" component={DisplayFlight} />
+            <Route path="/updateFlight" component={UpdateFlight} />
 
 
 
+          </div>
         </div>
       </Router>
     );

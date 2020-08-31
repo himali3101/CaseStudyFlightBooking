@@ -14,9 +14,9 @@ exports.getFlights = (req, res) => {
                             flightName: doc.flightName,
                             from: doc.from,
                             to: doc.to,
-                            departureDate: doc.departureDate,
+                            departureDate: doc.departureDate.getDate() + "-" + (doc.departureDate.getMonth() + 1) + "-" + doc.departureDate.getFullYear(),
                             departureTime: doc.departureTime,
-                            arrivaleDate: doc.arrivaleDate,
+                            arrivaleDate: doc.arrivaleDate.getDate() + "-" + (doc.arrivaleDate.getMonth() + 1) + "-" + doc.arrivaleDate.getFullYear(),
                             arrivaleTime: doc.arrivaleTime,
                             fare: doc.fare,
                             totalSeats: doc.totalSeats,
@@ -43,12 +43,14 @@ exports.getFlights = (req, res) => {
 }
 
 exports.getFlightsByName = (req, res) => {
-    const name = req.params.flightName;
-    Flight.find({ flightName: name })
+
+    console.log(req.params.name)
+    Flight.find({ flightName: req.params.name })
         .select('flightName from to fare departureDate departureTime arrivaleDate arrivaleTime totalSeats remainingSeats _id')
         .exec()
         .then(doc => {
             if (doc) {
+
                 const response = {
                     flight: {
                         flightName: doc.flightName,
@@ -64,8 +66,8 @@ exports.getFlightsByName = (req, res) => {
                         _id: doc._id
                     }
                 }
-                console.log(doc);
-                res.status(200).json(doc);
+                console.log("*******get flight by name" + response.flight.flightName);
+                res.status(200).json(response);
             }
             else {
                 res.status(404).json({
@@ -87,9 +89,9 @@ exports.addFlight = (req, res) => {
                     message: "Flgiht Name already exists"
                 })
             } else {
-                var dDate = new Date('20-08-2020');
+                var dDate = new Date().getDate();
                 dDate = req.body.departureDate
-                var aDate = new Date('20-08-2020');
+                var aDate = new Date();
                 aDate = req.body.arrivaleDate;
                 const flight = new Flight({
                     _id: new mongoose.Types.ObjectId,

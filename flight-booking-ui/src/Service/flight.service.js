@@ -9,11 +9,18 @@ class FlightService {
         return axios.get(API_URL)
     }
 
+    getFlightsByName(name) {
+        console.log("-------------name---------" + name)
+        return axios.get(API_URL + name)
+
+    }
+
     addFlight(flightName, from, to, departureDate,
         departureTime, arrivaleDate, arrivaleTime, totalSeats,
         fare) {
-        console.log("add" + authHeader()["x-access-token"])
-        return axios.post(API_URL + 'add', {
+
+        console.log(authHeader())
+        return axios.post(API_URL + 'add', { headers: authHeader() }, {
             flightName,
             from,
             to,

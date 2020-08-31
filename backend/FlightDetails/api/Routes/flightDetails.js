@@ -9,7 +9,7 @@ router.get('/', controller.getFlights);
 
 router.get('/:flightName', controller.getFlightsByName)
 
-router.post('/add', controller.addFlight)
+router.post('/add', checkAuth.verifyToken, controller.addFlight)
 
 router.patch('/:flightName', controller.updateFlight)
 

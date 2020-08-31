@@ -4,7 +4,7 @@ exports.verifyToken = function (req, res, next) {
 
     let token = req.body.headers["x-access-token"];
     if (!token) {
-        console.log(token)
+        console.log("**************token**************" + token)
         return res.status(403).send({
             message: "No token provided!",
 
