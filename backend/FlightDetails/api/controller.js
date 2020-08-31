@@ -44,8 +44,8 @@ exports.getFlights = (req, res) => {
 
 exports.getFlightsByName = (req, res) => {
 
-    console.log(req.params.name)
-    Flight.find({ flightName: req.params.name })
+    console.log(req.params.flightName)
+    Flight.findOne({ flightName: req.params.flightName })
         .select('flightName from to fare departureDate departureTime arrivaleDate arrivaleTime totalSeats remainingSeats _id')
         .exec()
         .then(doc => {
@@ -66,7 +66,7 @@ exports.getFlightsByName = (req, res) => {
                         _id: doc._id
                     }
                 }
-                console.log("*******get flight by name" + response.flight.flightName);
+                console.log("*******get flight by name**************" + response.flight);
                 res.status(200).json(response);
             }
             else {

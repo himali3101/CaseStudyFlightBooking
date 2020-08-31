@@ -9,9 +9,9 @@ class FlightService {
         return axios.get(API_URL)
     }
 
-    getFlightsByName(name) {
-        console.log("-------------name---------" + name)
-        return axios.get(API_URL + name)
+    getFlightsByName(flightName) {
+        console.log("-------------name---------" + flightName)
+        return axios.get(API_URL + flightName)
 
     }
 

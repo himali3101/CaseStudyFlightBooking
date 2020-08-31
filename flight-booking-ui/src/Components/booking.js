@@ -27,15 +27,17 @@ class BookingFlight extends Component {
 
             FlightService.getFlightsByName(this.props.name)
                 .then(result => {
-                    // bookingService.booking(result.flightName, result.from, result.to, result.departureDate,
-                    //     result.departureTime, result.arrivaleDate, result.arrivaleTime,
-                    //     result.fare, result.totalSeats, result.remainingSeats, result.flightName)
-                    //     .then(result => {
-                    //         console.log("Booked")
-                    //     }) 
-                    //     .catch(err => {
-                    //         console.log(err)
-                    //     })
+                    console.log(result.data.flight.flightName)
+                    const flight = result.data.flight
+                    bookingService.booking(flight.flightName, flight.from, flight.to, flight.departureDate,
+                        flight.departureTime, flight.arrivaleDate, flight.arrivaleTime,
+                        flight.fare, flight.totalSeats, flight.remainingSeats, flight.flightName)
+                        .then(result => {
+                            console.log("Booked")
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
 
                 })
 

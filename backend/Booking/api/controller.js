@@ -14,6 +14,7 @@ exports.showBooking = (req, res) => {
 
 exports.getBooking = (req, res) => {
     const remaining = req.body.remainingSeats
+    console.log(req.body.from + "*****************=============")
     const book = axios.get("http://localhost:3001/flight/" + req.body.flightName)
         .then(result => {
             console.log("****************booking************" + req.body.remainingSeats)
@@ -65,7 +66,7 @@ exports.getBooking = (req, res) => {
 
         })
         .catch(err => {
-            console.log(err)
+            console.log(err.data)
             res.status(500).json({
                 message: err
             })
