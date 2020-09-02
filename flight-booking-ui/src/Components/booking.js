@@ -10,6 +10,7 @@ import AuthService from '../Service/auth.service';
 import FlightService from '../Service/flight.service'
 import Login from '../Components/login';
 import UserService from '../Service/user.service';
+import './booking.css'
 
 const user = AuthService.getCurrentUser();
 
@@ -47,11 +48,11 @@ class BookingFlight extends Component {
                         flight.fare, flight.totalSeats, flight.remainingSeats, user.user.email)
                         .then(result => {
 
-                            UserService.getPublicContent(user.email)
-                                .then(user => {
-
+                            UserService.getPublicContent(user.user.email)
+                                .then(result => {
+                                    console.log(result.data)
                                     this.setState({
-                                        user: user.data.user
+                                        user: result.data
                                     })
                                 })
                                 .catch(err => {
@@ -66,9 +67,6 @@ class BookingFlight extends Component {
                         })
 
                 })
-
-
-
 
         }
         else {
@@ -86,13 +84,13 @@ class BookingFlight extends Component {
                     this.state.isLoggedIn &&
                     <div>
                         <h2>Booking Details</h2>
-                        <div className="displayContainer font-weight-bold">
+                        <div className="ticket-displayContainer font-weight-bold">
                             <div className="ticket-header">
-                                <div className="row" >
+                                <div >
                                     <h3>Flight Ticket</h3>
                                 </div>
                             </div>
-                            <div className="row" >
+                            <div className="row p-3" >
                                 <div className="col-sm-3 p-8 sideLine">
                                     <div className="row p-2">
                                         Passenger Name
@@ -141,13 +139,19 @@ class BookingFlight extends Component {
                                     </div>
                                 </div>
 
-                                <div className="col-sm-4 p-5">
-                                    <div className="row" >
-                                        Fare : {flight.fare}
+                                <div className="col-sm-4 p-2">
+                                    <div className="row p-1" >
+                                        Fare
+                                    </div>
+                                    <div className="row p-1" >
+                                        {flight.fare}
                                     </div>
 
-                                    <div className="row" >
-                                        Seat No : {flight.allocatedSeat}
+                                    <div className="row p-1" >
+                                        Seat No
+                                    </div>
+                                    <div className="row p-1" >
+                                        {flight.allocatedSeat}
                                     </div>
                                 </div>
 

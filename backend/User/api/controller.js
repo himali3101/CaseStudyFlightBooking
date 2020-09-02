@@ -50,7 +50,7 @@ exports.signup = (req, res) => {
 }
 
 exports.getUser = (req, res) => {
-    User.find({ email: req.params.email })
+    User.findOne({ email: req.params.email })
         .exec()
         .then(user => {
             if (user.length < 1) {
@@ -58,20 +58,8 @@ exports.getUser = (req, res) => {
                     message: "User Doesn't exist"
                 })
             } else {
-                const response = {
-                    user: user.map(doc => {
-                        return {
-                            email: doc.email,
-                            username: doc.username,
-                            gender: doc.gender,
-                            birthdate: doc.birthdate,
-                            phoneNo: doc.phoneNo
-                        }
-                    })
-                }
-                res.status(200).json({
-                    user: response
-                })
+
+                res.status(200).json(user)
             }
         })
 }

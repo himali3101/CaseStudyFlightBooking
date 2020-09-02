@@ -1,7 +1,29 @@
 .ticket-header{
     background-color: rgb(34, 165, 252);
+    border-radius: 1em;
+    margin: -0.2% -0.2%;
 }
 .ticket-footer{
     background-color: rgb(34, 165, 252);
 
+}
+ .ticket-displayContainer{
+    display: flexbox;
+    width: 55%;
+    height: 30vh;
+    background-color: white;
+    box-shadow: 1px 0px 2px 2px black;
+    border: solid white;
+    border-radius: 0.5em;
+    margin: 5% 15%;
+}
+
+.ticket-displayContainer div {
+    top: 10%;
+    left: 1cm;
+}
+
+.ticket-displayContainer h3 {
+    margin: 0 40%;
+    height: 5vh;
 }
