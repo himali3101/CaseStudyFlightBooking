@@ -2,13 +2,13 @@ const mongoose = require('mongoose')
 const Flight = require('../Model/FlightDetails')
 
 exports.getFlights = (req, res) => {
+    console.log("*****inside get**************")
     Flight.find()
         .select('flightName from to fare departureDate departureTime arrivaleDate arrivaleTime totalSeats remainingSeats _id')
         .exec()
         .then(docs => {
             if (docs) {
                 const response = {
-                    count: docs.length,
                     flight: docs.map(doc => {
                         return {
                             flightName: doc.flightName,
@@ -25,7 +25,7 @@ exports.getFlights = (req, res) => {
                         }
                     })
                 }
-                console.log(docs);
+                //console.log(docs);
                 res.status(200).json(response);
             }
             else {

@@ -46,7 +46,8 @@ exports.getBooking = (req, res) => {
                             .then(updateDate => {
                                 console.log("patch" + updateDate.data.remainingSeats)
                                 res.status(200).json({
-                                    message: "Booking done your Seat no. is" + saveResult.allocatedSeat
+                                    message: "Booking done your Seat no. is" + saveResult.allocatedSeat,
+                                    booking: saveResult
                                 })
                             })
                             .catch(err => {

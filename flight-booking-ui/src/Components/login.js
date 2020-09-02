@@ -71,6 +71,7 @@ class Login extends Component {
                     this.props.history.push('/updateFlight')
                     window.location.reload();
                 } else {
+
                     this.props.history.push('/')
                     window.location.reload();
                     console.log(data.Token)

@@ -64,6 +64,7 @@ body{
     height: 100vh;
     background: rgba(0,0,0,0.7);
     z-index: 1;
+    border: black;
 }
 
 .overlay{
@@ -75,9 +76,29 @@ body{
     height: 25vh;
 }
 
-.bookbutton{
-    position: absolute;
-    left: 25%;
-    top: 40%;
+.confirmButton{
     width: 50%;
+    margin: 30% 20%;
+}
+
+.bookbutton{
+    width: 10%;
+    height: 1vh;
+}
+
+.flightName{
+    width: 40%;
+    margin: 5% 30%;
+}
+
+.flightName input{
+  height: 50px;
+}
+
+.flightName button{
+    height: 50px;
+}
+
+.seat{
+    color: white;
 }

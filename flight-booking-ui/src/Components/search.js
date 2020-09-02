@@ -121,11 +121,12 @@ class SearchFlight extends Component {
                 {display &&
 
                     searchData.map(flight => <div key={flight._id}>
-                        <div>
+                        <div className="flightName row">
                             <input type="text" value={this.state.flightName} onChange={this.handleFlightName} />
                             <button className=" btn btn-primary btn-block bookButton" onClick={this.handleBook}>Book</button>
 
                         </div>
+                        <hr />
                         <div className="displayContainer font-weight-bold">
                             <div className="row" >
                                 <div className="col-sm-3 p-4 sideLine">
@@ -173,7 +174,7 @@ class SearchFlight extends Component {
                                     <div className="row" >
                                         Fare : {flight.fare}
                                     </div>
-                                    <div className="row p-1" >
+                                    <div className="row p-1 seat" >
                                         {flight.totalSeats} {flight.remainingSeats}
 
                                     </div>

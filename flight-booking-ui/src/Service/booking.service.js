@@ -14,12 +14,12 @@ class BookingService {
             fare, totalSeats, remainingSeats, email)
 
         return axios
-            .post(API_URL + "flight", { headers: authHeader() }, {
+            .post(API_URL + "flight", {
                 flightName, from, to, departureDate,
                 departureTime, arrivaleDate, arrivaleTime,
                 fare, totalSeats, remainingSeats, email
 
-            })
+            }, { headers: authHeader() })
             .then(response => {
                 console.log(response)
                 return response

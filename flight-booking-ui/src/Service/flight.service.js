@@ -20,7 +20,7 @@ class FlightService {
         fare) {
 
         console.log(authHeader())
-        return axios.post(API_URL + 'add', { headers: authHeader() }, {
+        return axios.post(API_URL + 'add', {
             flightName,
             from,
             to,
@@ -30,7 +30,7 @@ class FlightService {
             arrivaleTime,
             totalSeats,
             fare
-        })
+        }, { headers: authHeader() })
     }
 
     cancelFlight(flightName) {
