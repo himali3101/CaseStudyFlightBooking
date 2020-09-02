@@ -21,6 +21,16 @@ align-items: center;
     position: relative;
 }
 
+.model-content-signup{
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
 .login-img{
     width: 100px;
     margin: 0 200px;

@@ -14,7 +14,7 @@ class SearchFlight extends Component {
         this.state = {
             from: '',
             to: '',
-            departureDate: '',
+            departureDate: Date,
             searchData: [],
             columns: [
                 {
@@ -62,6 +62,7 @@ class SearchFlight extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        console.log(this.state.departureDate)
         searchService.getFlight(this.state.from, this.state.to, this.state.departureDate)
             .then(data => {
                 console.log(data.data.flight)
@@ -109,7 +110,7 @@ class SearchFlight extends Component {
 
                         <input type="text" name="to" placeholder="To" value={this.state.to} onChange={this.handleTo} required />
 
-                        <input type="Date" name="departureDate" placeholder="Departure Date" value={this.state.departureDate} onChange={this.handleDepartureDate} required />
+                        <input type="date" name="departureDate" placeholder="Departure Date" value={this.state.departureDate} onChange={this.handleDepartureDate} required />
 
                         <button type="submit" class="  btn btn-primary btn-block searchButton" >Search</button>
 
@@ -118,15 +119,17 @@ class SearchFlight extends Component {
 
                 </form>
                 {this.state.addContainer && <BookingFlight name={this.state.flightName} />}
+                {display && <div className="flightName row">
+                    <input type="text" value={this.state.flightName} onChange={this.handleFlightName} />
+                    <button className=" btn btn-primary btn-block bookButton" onClick={this.handleBook}>Book</button>
+                    <hr />
+                </div>
+
+                }
                 {display &&
 
                     searchData.map(flight => <div key={flight._id}>
-                        <div className="flightName row">
-                            <input type="text" value={this.state.flightName} onChange={this.handleFlightName} />
-                            <button className=" btn btn-primary btn-block bookButton" onClick={this.handleBook}>Book</button>
 
-                        </div>
-                        <hr />
                         <div className="displayContainer font-weight-bold">
                             <div className="row" >
                                 <div className="col-sm-3 p-4 sideLine">

@@ -26,9 +26,22 @@ class BookingService {
             })
     }
 
-    showBooking(flightName, email) {
+    showBooking(email) {
+
         return axios
-            .get(API_URL + flightName + "/" + email)
+            .get(API_URL + email)
+            .then(result => {
+                return result
+            })
+            .catch(err => {
+                return err
+            })
+    }
+
+
+    showAllBooking() {
+        return axios
+            .get(API_URL)
             .then(result => {
                 return result
             })
@@ -38,5 +51,6 @@ class BookingService {
     }
 
 }
+
 
 export default new BookingService();

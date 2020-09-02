@@ -3,14 +3,29 @@ const Booking = require('../Model/Booking')
 const axios = require('axios')
 
 exports.showBooking = (req, res) => {
-    Booking.find({ flightName: req.params.flightName, email: req.params.email })
+    Booking.find({ email: req.params.email })
         .then(result => {
-            return result
+            res.status(200).json({
+                flight: result
+            })
         })
         .catch(err => {
             return err
         })
 }
+
+exports.getAllBookings = (req, res) => {
+    Booking.find()
+        .then(result => {
+            res.status(200).json({
+                flight: result
+            })
+        })
+        .catch(err => {
+            return err
+        })
+}
+
 
 exports.getBooking = (req, res) => {
     const remaining = req.body.remainingSeats

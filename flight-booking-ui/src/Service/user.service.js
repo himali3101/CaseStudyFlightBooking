@@ -4,8 +4,8 @@ import authHeader from './auth-hearder';
 const API_URL = 'http://localhost:9000/user/';
 
 class UserService {
-    getPublicContent() {
-        return axios.get(API_URL + 'all');
+    getPublicContent(email) {
+        return axios.get(API_URL + 'getuser/' + email);
     }
 
     getUserBoard() {

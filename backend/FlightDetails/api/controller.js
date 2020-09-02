@@ -89,18 +89,17 @@ exports.addFlight = (req, res) => {
                     message: "Flgiht Name already exists"
                 })
             } else {
-                var dDate = new Date().getDate();
-                dDate = req.body.departureDate
-                var aDate = new Date();
-                aDate = req.body.arrivaleDate;
+                var dDate = new Date()
+                var aDate = new Date(req.body.arrivaleDate);
+                console.log(req.body.departureDate)
                 const flight = new Flight({
                     _id: new mongoose.Types.ObjectId,
                     flightName: req.body.flightName,
                     from: req.body.from,
                     to: req.body.to,
-                    departureDate: dDate,
+                    departureDate: req.body.departureDate,
                     departureTime: req.body.departureTime,
-                    arrivaleDate: aDate,
+                    arrivaleDate: req.body.arrivaleDate,
                     arrivaleTime: req.body.arrivaleTime,
                     fare: req.body.fare,
                     totalSeats: req.body.totalSeats,

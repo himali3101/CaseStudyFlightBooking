@@ -9,6 +9,7 @@ import bookingService from '../Service/booking.service';
 import AuthService from '../Service/auth.service';
 import FlightService from '../Service/flight.service'
 import Login from '../Components/login';
+import UserService from '../Service/user.service';
 
 const user = AuthService.getCurrentUser();
 
@@ -22,7 +23,8 @@ class BookingFlight extends Component {
             flight: '',
             booking: [],
             notLoggedIn: false,
-            isLoggedIn: false
+            isLoggedIn: false,
+            user: []
         }
 
     }
@@ -34,17 +36,27 @@ class BookingFlight extends Component {
                 notLoggedIn: false,
                 isLoggedIn: true
             })
-            console.log("********************    " + this.props.name)
+
 
             FlightService.getFlightsByName(this.props.name)
                 .then(result => {
-                    console.log(result.data.flight.flightName + "***************")
+
                     const flight = result.data.flight
                     bookingService.booking(flight.flightName, flight.from, flight.to, flight.departureDate,
                         flight.departureTime, flight.arrivaleDate, flight.arrivaleTime,
-                        flight.fare, flight.totalSeats, flight.remainingSeats, user.email)
+                        flight.fare, flight.totalSeats, flight.remainingSeats, user.user.email)
                         .then(result => {
-                            console.log(result.data.message + "**************" + result.data.booking)
+
+                            UserService.getPublicContent(user.email)
+                                .then(user => {
+
+                                    this.setState({
+                                        user: user.data.user
+                                    })
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
                             this.setState({
                                 flight: result.data.booking
                             })
@@ -56,6 +68,8 @@ class BookingFlight extends Component {
                 })
 
 
+
+
         }
         else {
             this.setState({
@@ -65,7 +79,7 @@ class BookingFlight extends Component {
     }
 
     render() {
-        const { flight } = this.state
+        const { flight, user } = this.state
         return (
             <Router>
                 {
@@ -73,8 +87,20 @@ class BookingFlight extends Component {
                     <div>
                         <h2>Booking Details</h2>
                         <div className="displayContainer font-weight-bold">
+                            <div className="ticket-header">
+                                <div className="row" >
+                                    <h3>Flight Ticket</h3>
+                                </div>
+                            </div>
                             <div className="row" >
-                                <div className="col-sm-3 p-4 sideLine">
+                                <div className="col-sm-3 p-8 sideLine">
+                                    <div className="row p-2">
+                                        Passenger Name
+                                    </div>
+                                    <div className="row p-2" >
+                                        {user.username}
+                                    </div>
+
                                     <div className="row p-2">
                                         Flight Name
                                     </div>
@@ -119,10 +145,16 @@ class BookingFlight extends Component {
                                     <div className="row" >
                                         Fare : {flight.fare}
                                     </div>
-                                    <div className="row p-1" >
+
+                                    <div className="row" >
+                                        Seat No : {flight.allocatedSeat}
+                                    </div>
+                                </div>
+
+                                <div className="ticket-footer">
+                                    <div className="row p-1">
 
                                     </div>
-
                                 </div>
                             </div>
 

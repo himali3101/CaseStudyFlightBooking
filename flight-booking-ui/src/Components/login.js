@@ -67,7 +67,8 @@ class Login extends Component {
         });
         AuthService.login(this.state.email, this.state.password).then(
             data => {
-                if (data.email === 'admin@gmail.com') {
+                console.log(data)
+                if (data.user.email === 'admin@gmail.com') {
                     this.props.history.push('/updateFlight')
                     window.location.reload();
                 } else {

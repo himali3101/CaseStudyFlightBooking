@@ -4,15 +4,17 @@ const Flight = require('../Model/Flight')
 exports.search = (req, res) => {
     const from = req.body.from
     const to = req.body.to
-    const departureDate = new Date(req.body.departureDate)
+    //var departureDate = new Date(req.body.departureDate)
+    var departureDate = req.body.departureDate + "T00:00:00.000+00:00"
     console.log(departureDate)
     Flight.find({ from: from, to: to, departureDate: departureDate })
         .select('flightName from to fare departureDate departureTime arrivaleDate arrivaleTime totalSeats remainingSeats _id')
         .exec()
         .then(docs => {
             if (docs) {
-                console.log("esfhlKSJf****************" + docs.totalSeats)
+
                 const response = {
+
                     count: docs.length,
                     flight: docs.map(doc => {
                         return {

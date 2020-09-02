@@ -19,15 +19,23 @@ exports.signup = (req, res) => {
                             error: err
                         });
                     } else {
+                        console.log(req.body.username)
+                        var bDate = new Date()
+                        bDate = req.body.birthdate
                         const user = new User({
                             _id: new mongoose.Types.ObjectId,
                             email: req.body.email,
-                            password: hash
+                            password: hash,
+                            username: req.body.username,
+                            gender: req.body.gender,
+                            birthdate: bDate,
+                            phoneNo: req.body.phoneNo
                         });
                         user.save()
                             .then(result => {
                                 res.status(201).json({
-                                    message: "User created"
+                                    message: "User created",
+                                    user: user
                                 })
                             })
                             .catch(err => {
@@ -41,8 +49,35 @@ exports.signup = (req, res) => {
         })
 }
 
+exports.getUser = (req, res) => {
+    User.find({ email: req.params.email })
+        .exec()
+        .then(user => {
+            if (user.length < 1) {
+                return res.status(404).json({
+                    message: "User Doesn't exist"
+                })
+            } else {
+                const response = {
+                    user: user.map(doc => {
+                        return {
+                            email: doc.email,
+                            username: doc.username,
+                            gender: doc.gender,
+                            birthdate: doc.birthdate,
+                            phoneNo: doc.phoneNo
+                        }
+                    })
+                }
+                res.status(200).json({
+                    user: response
+                })
+            }
+        })
+}
+
 exports.login = (req, res) => {
-    console.log("login")
+    console.log("login" + req.body.email)
     User.find({ email: req.body.email })
         .exec()
         .then(user => {
@@ -68,7 +103,7 @@ exports.login = (req, res) => {
                     return res.status(200).json({
                         message: 'Auth successful',
                         Token: token,
-                        email: user[0].email
+                        user: user[0]
                     })
                 }
                 res.status(401).json({

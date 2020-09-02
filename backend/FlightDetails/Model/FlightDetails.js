@@ -39,7 +39,8 @@ const flightSchema = mongoose.Schema({
     remainingSeats: {
         type: Number,
         required: true
-    }
+    },
+
 })
 
 module.exports = mongoose.model('Flight', flightSchema);

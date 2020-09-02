@@ -14,6 +14,7 @@ import Login from './Components/login'
 import AddFlight from './Components/FlightDetails/addFlight'
 import DisplayFlight from './Components/FlightDetails/displayFlight'
 import UpdateFlight from './Components/FlightDetails/updateFlight'
+import Profile from './Components/profile'
 
 
 
@@ -37,7 +38,7 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: AuthService.getCurrentUser(),
-        showAdminPage: user.email.includes("admin@gmail.com")
+        showAdminPage: user.user.email.includes("admin@gmail.com")
       })
 
     }
@@ -71,7 +72,7 @@ class App extends Component {
                     <div className="navbar-nav ml-auto">
                       <li className="nav-item">
                         <NavLink to={"/profile"} className="nav-link">
-                          {currentUser.email}
+                          {currentUser.user.email}
                         </NavLink>
                       </li>
                       <li className="nav-item">
@@ -106,6 +107,7 @@ class App extends Component {
             <Route path="/addFlight" exact component={AddFlight} />
             <Route path="/displayFlight" component={DisplayFlight} />
             <Route path="/updateFlight" component={UpdateFlight} />
+            <Route path="/profile" component={Profile} />
 
 
 
