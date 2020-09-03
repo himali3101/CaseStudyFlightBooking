@@ -59,12 +59,12 @@ class App extends Component {
             <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark ">
               <div class="container-fluid">
                 <div className="navbar-brand">
-                  <img src="../images/images.jpg" style={{ width: 100, marginTop: -7 }} />
+                  <img src="https://lh3.googleusercontent.com/lZUHswicObobNhI5upnRZoAviSOSgoyg7hJTRTB8r5IsNtTZXLuqB5f2EyqC-TYQDQ" style={{ width: 60, marginTop: -7 }} />
                                 Flight Booking
                             </div>
                 <ul class="nav navbar-nav navbar-right">
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/">Home</NavLink>
+                    <NavLink className="nav-link" to="/" exact>Home</NavLink>
                   </li>
 
 
@@ -100,7 +100,7 @@ class App extends Component {
               </div>
             </nav>
 
-            <Route path="/" component={Home} />
+            <Route path="/" exact component={Home} />
             <Route path="/adminpage" component={AdminPage} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />

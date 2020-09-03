@@ -10,27 +10,8 @@ import Input from "react-validation/build/input";
 import { isEmail } from "validator";
 //import { model } from '../../../backend/FlightDetails/Model/FlightDetails';
 
-
-const required = value => {
-    if (!value) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                This field is required!
-            </div>
-        );
-    }
-};
-
-const email = value => {
-    if (!isEmail(value)) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                This is not a valid email.
-            </div>
-        );
-    }
-};
-
+var email;
+var required;
 
 class Login extends Component {
     constructor() {
@@ -40,9 +21,31 @@ class Login extends Component {
             email: '',
             password: '',
             loading: false,
-            message: ""
+            message: " "
         }
     }
+
+
+    required = value => {
+        if (value == '') {
+            return (
+                <div className="alert alert-danger" role="alert">
+                    This field is required!
+                </div>
+            );
+        }
+    };
+
+    email = value => {
+        if (!isEmail(value)) {
+            return (
+                <div className="alert alert-danger" role="alert">
+                    This is not a valid email.
+                </div>
+            );
+        }
+    };
+
     handleClose = (event) => {
         this.props.history.push('/')
         window.location.reload();
@@ -61,38 +64,47 @@ class Login extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        this.setState({
-            message: "",
-            loading: true
-        });
-        AuthService.login(this.state.email, this.state.password).then(
-            data => {
-                console.log(data)
-                if (data.user.email === 'admin@gmail.com') {
-                    this.props.history.push('/updateFlight')
-                    window.location.reload();
-                } else {
+        if (this.state.email || this.state.password === '') {
+            console.log("Checking")
+            this.setState({
+                message: "Enter Both Values"
+            })
+        }
+        else {
+            this.setState({
+                message: "",
+                loading: true
+            });
+            AuthService.login(this.state.email, this.state.password).then(
+                data => {
+                    console.log(data)
+                    if (data.user.email === 'admin@gmail.com') {
+                        this.props.history.push('/updateFlight')
+                        window.location.reload();
+                    } else {
 
-                    this.props.history.push('/')
-                    window.location.reload();
-                    console.log(data.Token)
+                        this.props.history.push('/')
+                        window.location.reload();
+                        console.log(data.Token)
+                    }
+
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+
+                    this.setState({
+                        loading: false,
+                        message: resMessage
+                    });
                 }
+            );
 
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-
-                this.setState({
-                    loading: false,
-                    message: resMessage
-                });
-            }
-        );
+        }
 
     }
 
@@ -130,19 +142,9 @@ class Login extends Component {
                 </div>
             </div>
 
-
-            // <div className="container-fluid">
-            //     <div className="row justify-content-center">
-            //         <div className="col-12 col-sm-6 col-md-3">
-
-            //         </div>
-            //     </div>
-
-            // </div>
         )
     }
 
-    // <input class="button" type="submit" (click) = "signup(userName.value, password.value, userType.value)" />
 
 }
 

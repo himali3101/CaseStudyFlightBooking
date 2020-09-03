@@ -1,8 +1,8 @@
 .searchContainer input{
     width: 25%;
-    height: 7vh;
+    height: 9vh;
     background-color: rgba(214, 209, 209, 0.863);
-    top: 0.7cm;
+    top: 1cm;
     left: 3cm;
     border-top: none;
     border-right: none;
@@ -12,18 +12,18 @@
 }
 
 .searchButton{
-    margin: 2% 40%;
-    width: 15%;
-    height: 5vh;
+    margin: 6% 40%;
+    width: 20%;
+    height: 7vh;
     border-radius: 0.5em;
 }
 
 .searchContainer{
-    margin: 2.5% 20%;
+    margin: 8% 20%;
     background-color: white;
     border-radius: 2em;
     width: 50%;
-    height: 15vh;
+    height: 20vh;
     justify-content: center;
     opacity: 0.99;
 }
@@ -36,7 +36,7 @@
 body{
     background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT263976Bat-NmQeIQu86Civ27U7FaLutPELg&usqp=CAU");
     background-repeat: no-repeat;
-    background-size: 2000px 250px;
+    background-size: 2000px 400px;
 }
 
  .displayContainer{

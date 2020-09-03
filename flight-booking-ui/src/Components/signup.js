@@ -2,6 +2,15 @@ import React, { Component } from 'react'
 import './login.css'
 import SignUpService from '../Service/signup.service'
 
+const validEmailRegex = RegExp(
+    /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+);
+const validateForm = errors => {
+    let valid = true;
+    Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+    return valid;
+};
+
 
 class SignUp extends Component {
     constructor() {
@@ -14,8 +23,62 @@ class SignUp extends Component {
             gender: '',
             birthdate: '',
             phoneNo: '',
-            registered: false
+            registered: false,
+            errors: {
+                email: '',
+                password: '',
+                username: '',
+                gender: '',
+                birthdate: '',
+                phoneNo: ''
+            }
         }
+    }
+
+    handleChange = (event) => {
+        event.preventDefault();
+        const { name, value } = event.target;
+        let errors = this.state.errors;
+
+        switch (name) {
+            case 'email':
+                errors.email =
+                    validEmailRegex.test(value)
+                        ? ''
+                        : 'Email is not valid!';
+                break;
+            case 'password':
+                errors.password =
+                    value.length < 8
+                        ? 'Password must be at least 8 characters long!'
+                        : '';
+                break;
+            case 'username':
+                errors.username =
+                    value.length < 4
+                        ? 'Password must be at least 4 characters long!'
+                        : '';
+                break;
+            case 'gender':
+                errors.gender =
+                    value === "male" || value === "female" || value === "other"
+                        ? ''
+                        : 'value of gender must be male or female or other';
+                break;
+            case 'phoneNo':
+                errors.phoneNo =
+                    (value.length > 10 || value.length < 10)
+                        ? 'Phone must contain 10 numbers'
+                        : '';
+                break;
+
+
+
+            default:
+                break;
+        }
+
+        this.setState({ errors, [name]: value });
     }
 
     handleClose = (event) => {
@@ -74,6 +137,7 @@ class SignUp extends Component {
     }
 
     render() {
+        const { errors } = this.state
         return (
             <div className="bg-model">
                 <div className="model-content-signup">
@@ -82,26 +146,38 @@ class SignUp extends Component {
                     <form class="form-container" onSubmit={this.handleSubmit}>
 
                         <div class="form-group">
-                            <input type="email" className="login-input" value={this.state.email} onChange={this.handleEmail} aria-describedby="emailHelp" placeholder="Enter email" />
+                            <input type="email" name="email" className="login-input" value={this.state.email} onChange={this.handleEmail, this.handleChange} aria-describedby="emailHelp" placeholder="Enter email" noValidate />
+                            {errors.email.length > 0 &&
+                                <span className='error' style={{ color: "red" }}>{errors.email}</span>}
                         </div>
                         <div class="form-group">
-                            <input type="password" className="login-input" value={this.state.password} onChange={this.handlePassword} placeholder="Password" />
+                            <input type="password" name="password" className="login-input" value={this.state.password} onChange={this.handlePassword, this.handleChange} placeholder="Password" noValidate />
+                            {errors.password.length > 0 &&
+                                <span className='error' style={{ color: "red" }}>{errors.password}</span>}
                         </div>
                         <div class="form-group">
-                            <input type="text" className="login-input" value={this.state.username} onChange={this.handleUsername} placeholder="Enter username" />
+                            <input type="text" name="username" className="login-input" value={this.state.username} onChange={this.handleUsername, this.handleChange} placeholder="Enter username" noValidate />
+                            {errors.username.length > 0 &&
+                                <span className='error' style={{ color: "red" }}>{errors.username}</span>}
                         </div>
                         <div class="form-group">
-                            <input type="text" className="login-input" value={this.state.gender} onChange={this.handleGender} placeholder="Enter your gender" />
+                            <input type="text" name="gender" className="login-input" value={this.state.gender} onChange={this.handleGender, this.handleChange} placeholder="Enter your gender" noValidate />
+                            {errors.gender.length > 0 &&
+                                <span className='error' style={{ color: "red" }}>{errors.gender}</span>}
                         </div>
                         <div class="form-group">
-                            <input type="Date" className="login-input" value={this.state.birthdate} onChange={this.handleBirthdate} placeholder="Enter BirthDate" />
+                            <input type="Date" name="birthdate" className="login-input" value={this.state.birthdate} onChange={this.handleBirthdate, this.handleChange} placeholder="Enter BirthDate" noValidate />
+                            {errors.birthdate.length > 0 &&
+                                <span className='error' style={{ color: "red" }}>{errors.birthdate}</span>}
                         </div>
                         <div class="form-group">
-                            <input type="number" className="login-input" value={this.state.phoneNo} onChange={this.handlePhoneNo} placeholder="Enter Phone no." />
+                            <input type="number" name="phoneNo" className="login-input" value={this.state.phoneNo} onChange={this.handlePhoneNo, this.handleChange} placeholder="Enter Phone no." noValidate />
+                            {errors.phoneNo.length > 0 &&
+                                <span className='error' style={{ color: "red" }}>{errors.phoneNo}</span>}
                         </div>
 
 
-                        <button type="submit" className="login-button">SignUp</button>
+                        <button type="submit" className="login-button" noValidate>SignUp</button>
                     </form>
                 </div>
             </div>
