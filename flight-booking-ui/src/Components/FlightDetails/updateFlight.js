@@ -152,7 +152,8 @@ class UpdateFlight extends Component {
                     }}
                     options={{
                         search: true,
-                        sorting: true
+                        sorting: true,
+                        paging: false
                     }}
                 />
             </div>

@@ -21,7 +21,7 @@ class Login extends Component {
             email: '',
             password: '',
             loading: false,
-            message: " "
+            message: ""
         }
     }
 
@@ -64,47 +64,43 @@ class Login extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        if (this.state.email || this.state.password === '') {
-            console.log("Checking")
-            this.setState({
-                message: "Enter Both Values"
-            })
-        }
-        else {
-            this.setState({
-                message: "",
-                loading: true
-            });
-            AuthService.login(this.state.email, this.state.password).then(
-                data => {
-                    console.log(data)
-                    if (data.user.email === 'admin@gmail.com') {
-                        this.props.history.push('/updateFlight')
-                        window.location.reload();
-                    } else {
+        this.setState({
+            message: "",
+            loading: true
+        });
+        AuthService.login(this.state.email, this.state.password).then(
+            data => {
+                this.setState({
+                    message: data.message
+                })
+                console.log(data)
+                if (data.user.email === 'admin@gmail.com') {
+                    this.props.history.push('/updateFlight')
+                    window.location.reload();
+                } else {
 
-                        this.props.history.push('/')
-                        window.location.reload();
-                        console.log(data.Token)
-                    }
-
-                },
-                error => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-
-                    this.setState({
-                        loading: false,
-                        message: resMessage
-                    });
+                    this.props.history.push('/')
+                    window.location.reload();
+                    console.log(data.Token)
                 }
-            );
 
-        }
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+
+                this.setState({
+                    loading: false,
+                    message: resMessage
+                });
+            }
+        );
+
+
 
     }
 
