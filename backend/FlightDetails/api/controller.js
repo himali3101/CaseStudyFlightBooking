@@ -152,7 +152,7 @@ exports.updateFlight = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    console.log("HEllo" + req.body.from)
+
     var dDate = new Date('20-08-2020');
     dDate = req.body.departureDate
     var aDate = new Date('20-08-2020');
@@ -169,13 +169,16 @@ exports.update = (req, res) => {
         totalSeats: req.body.totalSeats,
         remainingSeats: req.body.totalSeats
     });
-    console.log(flight)
+
     Flight.update({ flightName: req.body.flightName }, { $set: flight })
         .exec()
         .then(result => {
             res.status(200).json(result)
         })
         .catch(err => {
+            res.status(409).json({
+                message: "Flight not updated"
+            })
             console.log(err)
         })
 }

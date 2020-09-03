@@ -4,6 +4,25 @@ const app = express();
 const morgan = require('morgan');
 const bodyparser = require('body-parser')
 const mongoose = require('mongoose');
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
+require('./api/Routes/user')
+const swaggerOption = {
+    swaggerDefinition: {
+        info: {
+            title: "Flight User API",
+            description: "This API contains user login signup methods",
+            contact: {
+                name: "Himali Gunjal"
+            },
+            servers: ["http://localhost:9000"]
+        }
+    },
+    apis: ['./api/Routes/user.js']
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOption)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 const userRoutes = require('./api/Routes/user')
 

@@ -11,7 +11,7 @@ exports.search = (req, res) => {
         .select('flightName from to fare departureDate departureTime arrivaleDate arrivaleTime totalSeats remainingSeats _id')
         .exec()
         .then(docs => {
-            if (docs) {
+            if (docs.length != 0) {
 
                 const response = {
 
