@@ -8,8 +8,8 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerOption = {
     swaggerDefinition: {
         info: {
-            title: "Flight User API",
-            description: "This API contains user login signup methods",
+            title: "Flight search API",
+            description: "This API searches for flights",
             contact: {
                 name: "Himali Gunjal"
             },

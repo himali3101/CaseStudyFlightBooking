@@ -15,9 +15,9 @@ import AddFlight from './Components/FlightDetails/addFlight'
 import DisplayFlight from './Components/FlightDetails/displayFlight'
 import UpdateFlight from './Components/FlightDetails/updateFlight'
 import Profile from './Components/profile'
+import AdminRoutes from './Components/AdminRoute'
 
-
-
+const user = AuthService.getCurrentUser();
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +26,8 @@ class App extends Component {
 
     this.state = {
       showAdminPage: false,
-      currentUser: undefined
+      currentUser: undefined,
+      auth: false
     };
   }
 
@@ -106,7 +107,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/addFlight" exact component={AddFlight} />
             <Route path="/displayFlight" component={DisplayFlight} />
-            <Route path="/updateFlight" component={UpdateFlight} />
+            <AdminRoutes path="/updateFlight" component={UpdateFlight} />
             <Route path="/profile" component={Profile} />
 
 

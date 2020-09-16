@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, NavLink } from 'react-router-dom';
 import { Redirect, Route } from 'react-router-dom'
 
-
 import BookingService from '../Service/booking.service';
 import bookingService from '../Service/booking.service';
 import AuthService from '../Service/auth.service';
@@ -29,7 +28,6 @@ class BookingFlight extends Component {
         }
 
     }
-
 
     componentDidMount() {
         if (user) {
@@ -77,13 +75,12 @@ class BookingFlight extends Component {
     }
 
     render() {
-        const { flight, user } = this.state
+        const { flight, user, print } = this.state
         return (
             <Router>
                 {
                     this.state.isLoggedIn &&
                     <div>
-                        <h2>Booking Details</h2>
                         <div className="ticket-displayContainer font-weight-bold">
                             <div className="ticket-header">
                                 <div >

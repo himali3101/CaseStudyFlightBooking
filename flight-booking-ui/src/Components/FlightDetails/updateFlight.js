@@ -151,7 +151,7 @@ class UpdateFlight extends Component {
 
                     }}
                     options={{
-                        search: true,
+                        search: false,
                         sorting: true,
                         paging: false
                     }}
