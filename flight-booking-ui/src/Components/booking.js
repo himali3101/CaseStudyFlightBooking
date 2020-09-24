@@ -9,6 +9,7 @@ import AuthService from '../Service/auth.service';
 import FlightService from '../Service/flight.service'
 import Login from '../Components/login';
 import UserService from '../Service/user.service';
+import Payment from './payment'
 import './booking.css'
 
 const user = AuthService.getCurrentUser();
@@ -160,6 +161,10 @@ class BookingFlight extends Component {
                             </div>
 
 
+                        </div>
+
+                        <div>
+                            <Payment amount={flight.fare} />
                         </div>
                     </div>
 

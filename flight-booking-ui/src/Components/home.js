@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Search from './search'
+import Payment from './payment'
 
 class Home extends Component {
 
@@ -8,7 +9,7 @@ class Home extends Component {
         return (
             <div>
                 <Search />
-
+                <Payment />
             </div>
         )
     }
